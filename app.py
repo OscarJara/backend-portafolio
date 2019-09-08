@@ -6,6 +6,8 @@ from flask_cors         import CORS
 from flask_cors         import cross_origin
 
 
+from view.view_user     import *
+
 
 
 app = Flask(__name__)
@@ -21,6 +23,19 @@ def inicial():
         }
     ),200
 
+### USER
+
+@app.route('/user',methods=['POST'])
+def add_user():
+    return jsonify(add_user_view(request))
+
+@app.route('/user',methods=['GET'])
+def get_user():
+    return jsonify(list_user_view())
+
+@app.route('/login',methods=['POST'])
+def login():
+    return jsonify(login_view(request))
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
