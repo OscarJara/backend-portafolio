@@ -54,7 +54,7 @@ class User:
 
     @postgres_cursor_class
     def login(self,cursor):
-        query = """select us.nombres,us.apellido_paterno,us.apellido_materno,us.id_rol,us.id_unidad,us.imagen,un.id_empresa
+        query = """select us.id,us.nombres,us.apellido_paterno,us.apellido_materno,us.id_rol,us.id_unidad,us.imagen,un.id_empresa
         from usuario as us
         join unidad as un 
         on un.id=us.id_unidad
