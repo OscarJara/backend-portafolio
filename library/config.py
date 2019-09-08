@@ -5,7 +5,7 @@
 from os import environ
 from dotenv import load_dotenv
 from os.path import join, dirname
-load_dotenv(join(dirname(__file__), '../.env'))
+load_dotenv(join(dirname(__file__), './.env'))
 
 # Postgres library
 import psycopg2
