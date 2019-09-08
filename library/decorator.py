@@ -8,7 +8,7 @@ import traceback
 import psycopg2.extras
 
 
-from config import postgres_connect
+from library.config import postgres_connect
 
 def postgres_cursor(f):
     def with_connection_(*args, **kwargs):
@@ -53,6 +53,64 @@ def postgres_cursor_connection(f):
 
             connection.rollback()
             err = f.__name__
+            err += ' ERROR: ' + str(e)
+            desc = str(err) + ", problema: " + str(e)
+            return (
+                {
+                    'status':500,
+                    'msg':'Unexpected error',
+                    'error':desc
+
+                }
+            )
+        else:
+            connection.commit() # or maybe not
+        finally:
+            connection.close()
+    return with_connection_
+
+def postgres_cursor_class(function):
+    def with_connection_(self,*args, **kwargs):
+        connection = postgres_connect()
+
+        try:
+            with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+                cursor.itersize = 1000
+                return function(self,cursor,*args, **kwargs)
+
+        except Exception as e:
+
+            connection.rollback()
+            err = function.__name__
+            err += ' ERROR: ' + str(e)
+            desc = str(err) + ", problema: " + str(e)
+            return (
+                {
+                    'status':500,
+                    'msg':'Unexpected error',
+                    'error':desc
+
+                }
+            )
+        else:
+            connection.commit() # or maybe not
+        finally:
+            connection.close()
+    return with_connection_
+
+def postgres_cursor_connection_class(function):
+    def with_connection_(self,*args,**kwargs):
+        connection = postgres_connect()
+
+        try:
+            with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+                cursor.itersize = 1000
+                return function(self,cursor,connection,*args, **kwargs)
+
+        except Exception as e:
+
+            connection.rollback()
+            err = function.__name__
             err += ' ERROR: ' + str(e)
             desc = str(err) + ", problema: " + str(e)
             return (
