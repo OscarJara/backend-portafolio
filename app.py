@@ -12,16 +12,14 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/',methods=['GET','POST'])
-def init():
-
+@app.route('/',methods=['GET'])
+def inicial():
     return jsonify(
         {
-            'status':200,
-            'msg':'Service ok'
+            'estado':200,
+            'glosa':'endpoint inicial ok'
         }
-    ),
-    200
+    ),200
 
 
 if __name__ == "__main__":
