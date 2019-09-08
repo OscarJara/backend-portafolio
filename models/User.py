@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from library.decorator import postgres_cursor_class,postgres_cursor_connection_class
 
 
@@ -61,6 +64,12 @@ class User:
             where correo=%s and password = %s"""
         cursor.execute(query,(self.mail,self.password))
         data = cursor.fetchone()
+        if not data:
+            return {
+                'status':204,
+                'msg':'Usuario o contraseña incorrectos',
+                'data':data
+            }
         return {
             'status':200,
             'msg':'Login Usuario',
