@@ -31,6 +31,11 @@ def list_user_view():
     user = User()
     return user.list_user()
 
+def delete_user_view(request):
+    
+    id = request.json['id']
+    user = User(id=id)
+    return user.delete_user()
 def login_view(request):
     mail = request.json['email']
     password = crypt(request.json['password'],'PORTAFOLIO',400)
