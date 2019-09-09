@@ -76,3 +76,15 @@ class User:
             'msg':'Login Usuario',
             'data':data
         }
+
+    @postgres_cursor_connection_class
+    def delete_user(self,cursor,connection,id):
+        query = """DELETE FROM usuario where id= %s """
+        cursor.execute(query,(self.id))
+        connection.commit()
+
+        return {
+            'status':200,
+            'msg':'Usuario eliminado con exito',
+            'data':[]
+        }
