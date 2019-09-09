@@ -80,7 +80,7 @@ class User:
     @postgres_cursor_connection_class
     def delete_user(self,cursor,connection):
         query = """DELETE FROM usuario where id= %s """
-        cursor.execute(query,(self.id))
+        cursor.execute(query,(self.id,))
         connection.commit()
 
         return {
