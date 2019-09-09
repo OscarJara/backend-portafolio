@@ -33,7 +33,7 @@ def add_user():
 def get_user():
     return jsonify(list_user_view())
 
-@app.route('/user',methods=['DELETE'])
+@app.route('/delete-user',methods=['POST'])
 def delete_user():
     return jsonify(delete_user_view(request))
 @app.route('/login',methods=['POST'])
