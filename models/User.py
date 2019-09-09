@@ -46,7 +46,7 @@ class User:
                     'apellido_paterno':k['apellido_paterno'],
                     'apellido_materno':k['apellido_materno'],
                     'id':k['id'],
-                    'imagen':k['imagen'].split(',')[1]
+                    'imagen':k['imagen'].split(',')[1] if k['imagen'] else ''
                 }
             )
         return {
@@ -70,7 +70,7 @@ class User:
                 'msg':'Usuario o contraseña incorrectos',
                 'data':data
             }
-        data['imagen'] = data['imagen'].split(',')[1]
+        data['imagen'] = data['imagen'].split(',')[1] if data['imagen'] else ''
         return {
             'status':200,
             'msg':'Login Usuario',
