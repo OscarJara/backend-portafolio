@@ -29,6 +29,7 @@ def postgres_cursor(f):
                 {
                     'status':500,
                     'msg':'Unexpected error',
+                    'data':[],
                     'error':desc
                 }
             )
@@ -59,6 +60,7 @@ def postgres_cursor_connection(f):
                 {
                     'status':500,
                     'msg':'Unexpected error',
+                    'data':[],
                     'error':desc
 
                 }
@@ -88,6 +90,7 @@ def postgres_cursor_class(function):
                 {
                     'status':500,
                     'msg':'Unexpected error',
+                    'data':[],
                     'error':desc
 
                 }
@@ -108,7 +111,7 @@ def postgres_cursor_connection_class(function):
                 return function(self,cursor,connection,*args, **kwargs)
 
         except Exception as e:
-
+            print (traceback.format_exc())
             connection.rollback()
             err = function.__name__
             err += ' ERROR: ' + str(e)
@@ -117,6 +120,7 @@ def postgres_cursor_connection_class(function):
                 {
                     'status':500,
                     'msg':'Unexpected error',
+                    'data':[],
                     'error':desc
 
                 }
