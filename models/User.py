@@ -294,3 +294,34 @@ class User:
             'msg':'Usuario eliminado con exito',
             'data':[]
         }
+
+    @postgres_cursor_class
+    def get_roles(self,cursor,correo):
+
+        query_rol_user = """SELECT id_rol as rol FROM usuario where correo = %s """
+        cursor.execute(query_rol_user,(correo,))
+
+        rol_usuario = cursor.fetchone()['rol']
+
+        if rol_usuario == 0:
+            query = """SELECT * FROM rol"""
+        else:
+            query = """SELECT * FROM rol where id >0"""
+        
+        cursor.execute(query)
+        data = cursor.fetchall()
+        code = 200 if data else 204
+        response = [
+            {
+                'id':k['id'],
+                'nombre':k['nombre']
+            }
+            for k in data
+        ]
+
+        response = sorted(response,key=lambda k: k['id'],reverse=False)
+        return {
+            'status':code,
+            'msg':'Lista de roles',
+            'data':response
+        }
