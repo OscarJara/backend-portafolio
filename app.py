@@ -25,6 +25,10 @@ def inicial():
 
 ### USER
 
+@app.route('/roles',methods=['GET'])
+def get_rol():
+    mail = request.args.get('i')
+    return jsonify(roles_view(mail))
 @app.route('/user',methods=['POST'])
 def add_user():
     return jsonify(add_user_view(request))
