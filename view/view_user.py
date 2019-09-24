@@ -1,4 +1,4 @@
-from models.user    import User
+from models.User    import User
 from pbkdf2   import crypt
 from flask import request
 
