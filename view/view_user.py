@@ -97,3 +97,6 @@ def update_user_view(request):
     )
 
     return user.update_user()
+
+def roles_view(mail):
+    return User().get_roles(mail)
