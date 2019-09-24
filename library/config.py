@@ -21,6 +21,10 @@ POSTGRE_USER = environ.get('POSTGRE_USER')
 POSTGRE_PASS = environ.get('POSTGRE_PASS')
 
 
+API_KEY = environ.get('API_KEY')
+FROM_EMAIL = environ.get('FROM_EMAIL')
+KEY_SECRET = environ.get('KEY_SECRET')
+
 def postgres_connect():
     connect_str = "dbname='{}' user='{}' host='{}' password='{}' ".format(
             POSTGRE_DB, POSTGRE_USER, POSTGRE_HOST, POSTGRE_PASS)
