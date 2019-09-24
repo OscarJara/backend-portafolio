@@ -319,7 +319,7 @@ class User:
             for k in data
         ]
 
-        response = sorted(response,key=lambda k: k['id'],reverse=False)
+        response = sorted(response,key=lambda k: k['id'],reverse=False) if response else []
         return {
             'status':code,
             'msg':'Lista de roles',
