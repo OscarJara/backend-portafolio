@@ -301,8 +301,14 @@ class User:
         query_rol_user = """SELECT id_rol as rol FROM usuario where correo = %s """
         cursor.execute(query_rol_user,(correo,))
 
-        rol_usuario = cursor.fetchone()['rol']
-
+        rol_usuario = cursor.fetchone()
+        if not rol_usuario:
+            return {
+                'status':204,
+                'msg':'Lista de roles',
+                'data':[]
+            }
+        rol_usuario = rol_usuario['rol']
         if rol_usuario == 0:
             query = """SELECT * FROM rol"""
         else:
