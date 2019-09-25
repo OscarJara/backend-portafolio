@@ -7,7 +7,7 @@ from flask_cors         import cross_origin
 
 
 from view.view_user     import *
-
+import view.view_roles  as role
 
 
 app = Flask(__name__)
@@ -23,12 +23,25 @@ def inicial():
         }
     ),200
 
-### USER
-
+### ROLE
 @app.route('/roles',methods=['GET'])
 def get_rol():
     mail = request.args.get('i')
-    return jsonify(roles_view(mail))
+    return jsonify(role.roles_view(mail))
+
+@app.route('/role',methods=['POST'])
+def add_role():
+    return jsonify(role.add_role_view(request))
+
+@app.route('/role',methods=['DELETE'])
+def delete_role():
+    return jsonify(role.delete_role_view(request))
+
+@app.route('/role',methods=['PUT'])
+def update_role():
+    return jsonify(role.update_role_view(request))
+### USER
+
 @app.route('/user',methods=['POST'])
 def add_user():
     return jsonify(add_user_view(request))
