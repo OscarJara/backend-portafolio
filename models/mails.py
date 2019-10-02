@@ -80,7 +80,7 @@ def get_plantilla(email,nombre,contrasena='',creacion=True,token='VACIO'):
                             <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border: 1px solid #cccccc; border-collapse: collapse;">
                                 <tr>
                                     <td align="center" bgcolor="#1476b8" style="padding: 40px 0 30px 0; color: #153643; font-size: 28px; font-weight: bold; font-family: Arial, sans-serif;">
-                                        <img src="http://www.sclance.com/pngs/welcome-png/welcome_png_1496564.png" alt="Creating Email Magic" width="300" height="230" style="display: block;" />
+                                        <img src="https://pngimage.net/wp-content/uploads/2018/05/bienvenida-png.png" alt="Creating Email Magic" width="300" height="230" style="display: block;" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -106,7 +106,7 @@ def get_plantilla(email,nombre,contrasena='',creacion=True,token='VACIO'):
                                 </div>
                             </div>
                             <div>
-                                <!--<a href="@URL_BASE/login/nueva-contrasena/?@TOKEN" target="_blank" id='url'>LINK</a>-->
+                                <a href="@URL_BASE/login/nueva-contrasena/?@TOKEN" target="_blank" id='url'>LINK</a>
                             </div>
                             <br>
                             <p>El link tiene una duracion de 30 minutos desde el momento en que se recibe el correo</p>
