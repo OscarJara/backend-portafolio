@@ -192,6 +192,32 @@ class Company:
         }
 
     @postgres_cursor_connection_class
+    def get_company_chart(self,cursor,connection):
+        if not self.__valid_company(cursor):
+            return {
+                'status':400,
+                'msg':'Empresa inexistente',
+                'data':[]
+            }
+        query = """ SELECT * FROM jerarquia where id_empresa = %s """
+        cursor.execute(query,(self.id,))
+        data_response = cursor.fetchone()
+        if not data_response:
+            return {
+                'status':204,
+                'msg':'Jerarquia no encontrada',
+                'data':[]
+            }
+        data_response = data_response['jerarquia']
+
+        return {
+            'status':200,
+            'msg':'Jerarquia',
+            'data':data_response
+        }
+        
+        
+    @postgres_cursor_connection_class
     def delete_company_char(self,cursor,connection):
         if not self.__valid_company(cursor):
             return {
