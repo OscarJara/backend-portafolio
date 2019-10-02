@@ -59,6 +59,7 @@ def get_user():
 @app.route('/user',methods=['PUT'])
 def update_user():
     return jsonify(update_user_view(request))
+
 @app.route('/delete-user',methods=['POST'])
 def delete_user():
     return jsonify(delete_user_view(request))
@@ -131,12 +132,16 @@ def add_company_chart():
     return jsonify(company.add_company_chart_view(request))
 
 @app.route('/organization-chart',methods=['PUT'])
-def update_company_cart():
+def update_company_chart():
     return jsonify(company.update_company_char_view(request))
     
 @app.route('/organization-chart',methods=['DELETE'])
-def delete_company_cart():
+def delete_company_chart():
     return jsonify(company.delete_company_char_view(request))
 
+@app.route('/organization-chart/<id>',methods=['GET'])
+def get_company_chart(id):
+    
+    return jsonify(company.get_company_chart_view(id))
 if __name__ == "__main__":
     app.run(debug=True)
