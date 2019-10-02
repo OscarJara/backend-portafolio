@@ -98,3 +98,11 @@ def update_user_view(request):
 
     return user.update_user()
 
+def activate_user_view(request):
+    id = request.json['id']
+
+    user = User(
+        id=id
+    )
+
+    return user.activate_user()
