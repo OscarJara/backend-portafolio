@@ -84,6 +84,12 @@ def delete_company_char_view(request):
     
     return company.delete_company_char()
 
+def get_company_chart_view(id):
+    company = Company(
+        id=id
+    )
+
+    return company.get_company_chart()
 # add_company
 # update_company
 # delete_company
