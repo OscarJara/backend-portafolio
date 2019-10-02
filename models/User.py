@@ -100,6 +100,7 @@ class User:
         connection.commit()
         body = get_plantilla(self.mail,self.name,passuser,True,token=token_cambio)
         send_mail(self.mail,'Creación Usuario',body)
+        
         return {
             'status':200,
             'msg':'Usuario agregado con exito, se envío un correo con la contraseña y link para realizar cambio.',
@@ -262,11 +263,11 @@ class User:
 
     @postgres_cursor_class
     def login(self,cursor):
-        query = """select us.id,us.nombres,us.apellido_paterno,us.apellido_materno,us.id_rol,us.id_unidad,us.imagen,un.id_empresa
-        from usuario as us
-        join unidad as un 
-        on un.id=us.id_unidad
-            where correo=%s and password = %s"""
+        query = """select us.id,us.nombres,us.apellido_paterno,us.apellido_materno,us.id_rol,us.id_unidad,us.imagen,un.id_empresa,us.estado
+            from usuario as us
+            join unidad as un 
+            on un.id=us.id_unidad
+            where correo=%s and password = %s """
         cursor.execute(query,(self.mail,
                             self.password))
         data = cursor.fetchone()
@@ -275,6 +276,12 @@ class User:
                 'status':204,
                 'msg':'Usuario o contraseña incorrectos',
                 'data':data
+            }
+        if not data['estado']:
+            return {
+                'status':400,
+                'msg':'Usuario desactivado',
+                'data':[]
             }
         data['imagen'] = data['imagen'].split(',')[1] if data['imagen'] else ''
         return {
@@ -285,12 +292,25 @@ class User:
 
     @postgres_cursor_connection_class
     def delete_user(self,cursor,connection):
-        query = """DELETE FROM usuario where id= %s """
+        query = """UPDATE usuario set estado = False where id= %s """
         cursor.execute(query,(self.id,))
         connection.commit()
 
         return {
             'status':200,
-            'msg':'Usuario eliminado con exito',
+            'msg':'Usuario Desactivado con exito',
+            'data':[]
+        }
+
+    @postgres_cursor_connection_class
+    def activate_user(self,cursor,connection):
+        query = """UPDATE usuario set estado = True where id= %s"""
+        cursor.execute(query,(self.id,))
+
+        connection.commit()
+
+        return {
+            'status':200,
+            'msg':'Usuario Activado con exito',
             'data':[]
         }
