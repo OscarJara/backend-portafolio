@@ -92,7 +92,7 @@ def vd_token():
                 'error':''
             }
         ),401
-    return jsonify(validate_token_view(request.headers['Acces-Token']))
+    return jsonify(validate_token_view(dict(request.headers)['Access-Token']))
 
 @app.route('/login',methods=['POST'])
 def login():
