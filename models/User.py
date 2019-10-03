@@ -133,23 +133,29 @@ class User:
             'data':[]
         }
 
-    @postgres_cursor_class
-    def validate_token(self,cursor,token):
-        token_encode = jwt.decode(token,KEY_SECRET)
+    def validate_token(self,token):
+        try:
+            token_encode = jwt.decode(token,KEY_SECRET)
 
-        hora_expiracion =pd.to_datetime(token_encode['expiracion'])
-        if hora_expiracion >= datetime.datetime.now():
+            hora_expiracion =pd.to_datetime(token_encode['expiracion'])
+            if hora_expiracion >= datetime.datetime.now():
+                return {
+                    'status':200,
+                    'msg':'ok',
+                    'data':[]
+                }
+            else:
+                return {
+                    'status':400,
+                    'msg':'La url para cambiar contraseña ha caducado',
+                    'data':[]
+                }
+        except Exception as e:
             return {
-                'status':200,
-                'msg':'ok',
-                'data':[]
-            }
-        else:
-            return {
-                'status':400,
-                'msg':'La url para cambiar contraseña ha caducado',
-                'data':[]
-            }
+                    'status':400,
+                    'msg':'Token invalido',
+                    'data':[]
+                }
 
     @postgres_cursor_connection_class
     def reset_password(self,cursor,connection,token):
