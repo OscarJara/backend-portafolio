@@ -138,8 +138,8 @@ class User:
             token_encode = jwt.decode(token,KEY_SECRET)
 
             hora_expiracion =pd.to_datetime(token_encode['expiracion'])
-            import pytz
-            if hora_expiracion >= datetime.datetime.now(pytz.timezone('America/Santiago')):
+
+            if hora_expiracion >= datetime.datetime.now():
                 return {
                     'status':200,
                     'msg':'ok',
