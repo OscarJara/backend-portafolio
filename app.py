@@ -79,7 +79,7 @@ def reset():
                 'error':''
             }
         ),401
-    return jsonify(reset_password_view(request,request.headers['Acces-Token']))
+    return jsonify(reset_password_view(request,dict(request.headers)['Access-Token']))
 
 @app.route('/vd-tkn',methods=['GET'])
 def vd_token():
