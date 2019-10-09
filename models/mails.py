@@ -125,8 +125,7 @@ def get_plantilla(email,nombre,contrasena='',creacion=True,token='VACIO'):
                             <p>El link tiene una duracion de 30 minutos desde el momento en que se recibe el correo</p>
                         </td>"""
 
-    token = str(token).replace('b','').replace("'",'')
-    plantilla = plantilla.replace('@TOKEN',str(token))
+    plantilla = plantilla.replace('@TOKEN',token.decode("utf-8"))
 
     plantilla+="""</tr>
                                     </table>
