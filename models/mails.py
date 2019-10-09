@@ -106,7 +106,7 @@ def get_plantilla(email,nombre,contrasena='',creacion=True,token='VACIO'):
                                 </div>
                             </div>
                             <div>
-                                <a href="@URL_BASE/login/nueva-contrasena/@TOKEN" target="_blank" id='url'>LINK</a>
+                                <a href="http://localhost:4200/new-password/@TOKEN" target="_blank" id='url'>LINK</a>
                             </div>
                             <br>
                             <p>El link tiene una duracion de 30 minutos desde el momento en que se recibe el correo</p>
@@ -119,7 +119,7 @@ def get_plantilla(email,nombre,contrasena='',creacion=True,token='VACIO'):
                             <br><br>
                             Este es el correo de recuperación de contraseña
                             <div>
-                                <a href="@URL_BASE/login/nueva-contrasena/@TOKEN" target="_blank" id='url'>LINK</a>
+                                <a href="http://localhost:4200/new-password/@TOKEN" target="_blank" id='url'>LINK</a>
                             </div>
                             <br>
                             <p>El link tiene una duracion de 30 minutos desde el momento en que se recibe el correo</p>
