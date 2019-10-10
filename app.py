@@ -9,6 +9,7 @@ from flask_cors         import cross_origin
 from view.view_user     import *
 import view.view_roles  as role
 import view.view_company as company
+import view.view_unity  as unity
 
 
 app = Flask(__name__)
@@ -141,7 +142,27 @@ def delete_company_chart():
 
 @app.route('/organization-chart/<id>',methods=['GET'])
 def get_company_chart(id):
-    
     return jsonify(company.get_company_chart_view(id))
+    
+
+### UNITY
+
+@app.route('/unity/<empresa>',methods=['GET'])
+def get_unity(empresa):
+    return jsonify(unity.unity_view(empresa))
+
+@app.route('/unity',methods=['POST'])
+def add_unity():
+    return jsonify(unity.add_unity_view(request))
+
+@app.route('/unity',methods=['PUT'])
+def modify_unity():
+    return jsonify(unity.update_unity_view(request))
+
+@app.route('/unity',methods=['DELETE'])
+def delete_unity():
+    return jsonify(unity.delete_unity_view(request))
+
+
 if __name__ == "__main__":
     app.run(debug=True)
