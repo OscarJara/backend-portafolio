@@ -78,7 +78,7 @@ class User:
 
 
         query = """INSERT INTO usuario (correo,nombres,apellido_paterno,apellido_materno,id_rol,id_unidad,password,estado,imagen)
-                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) """
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING id"""
         cursor.execute(query,(self.mail,
                             self.name,
                             self.last_name,
@@ -94,7 +94,7 @@ class User:
             'email':self.mail,
             'expiracion':str(expiracion)
         }
-
+        id = cursor.fetchone()['id']    
         token_cambio = jwt.encode(encode,KEY_SECRET)
         
         connection.commit()
@@ -104,7 +104,13 @@ class User:
         return {
             'status':200,
             'msg':'Usuario agregado con exito, se envío un correo con la contraseña y link para realizar cambio.',
-            'data':[]
+            'data':{
+                "apellido_materno": self.second_last_name, 
+                "apellido_paterno": self.last_name, 
+                "id": id, 
+                "imagen": self.image.split(',')[1] if self.image else '',
+                "nombre": self.name
+            }
         }
 
     @postgres_cursor_connection_class
@@ -130,7 +136,13 @@ class User:
         return {
             'status':200,
             'msg':'Usuario modificado con exito',
-            'data':[]
+            'data':{
+                "apellido_materno": self.second_last_name, 
+                "apellido_paterno": self.last_name, 
+                "id": self.id, 
+                "imagen": self.image.split(',')[1] if self.image else '',
+                "nombre": self.name
+            }
         }
 
     def validate_token(self,token):
