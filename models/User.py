@@ -271,7 +271,10 @@ class User:
                     'apellido_paterno':k['apellido_paterno'],
                     'apellido_materno':k['apellido_materno'],
                     'id':k['id'],
-                    'imagen':k['imagen'].split(',')[1] if k['imagen'] else ''
+                    'imagen':k['imagen'].split(',')[1] if k['imagen'] else '',
+                    'rol':k['id_rol'],
+                    'unidad':k['id_unidad'],
+                    'estado':k['estado']
                 }
             )
         return {
