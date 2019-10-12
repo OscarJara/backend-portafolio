@@ -274,7 +274,8 @@ class User:
                     'imagen':k['imagen'].split(',')[1] if k['imagen'] else '',
                     'rol':k['id_rol'],
                     'unidad':k['id_unidad'],
-                    'estado':k['estado']
+                    'estado':k['estado'],
+                    'email':k['correo']
                 }
             )
         return {
