@@ -35,7 +35,7 @@ def get_rol():
 def add_role():
     return jsonify(role.add_role_view(request))
 
-@app.route('/role',methods=['DELETE'])
+@app.route('/delete-role',methods=['POST'])
 def delete_role():
     return jsonify(role.delete_role_view(request))
 
