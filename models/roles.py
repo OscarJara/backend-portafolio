@@ -103,8 +103,8 @@ class Role:
                 'msg':'Lista de roles',
                 'data':[]
             }
-        rol_usuario = rol_usuario['rol']
         empresa = rol_usuario['empresa']
+        rol_usuario = rol_usuario['rol']
         if rol_usuario == 0:
             query = """SELECT * FROM rol where empresa = %s"""
         else:
