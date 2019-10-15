@@ -76,7 +76,7 @@ class Role:
         if is_valid:
             return is_valid
 
-        query_delete = """DELETE FROM rol WHERE id = %s """
+        query_delete = """UPDATE  rol set estado = false where id = %s """
         cursor.execute(query_delete,(self.id,))
 
         connection.commit()
@@ -89,7 +89,11 @@ class Role:
     @postgres_cursor_class
     def get_roles(self,cursor,correo):
 
-        query_rol_user = """SELECT id_rol as rol FROM usuario where correo = %s """
+        query_rol_user = """SELECT us.id_rol as rol,un.id_empresa as empresa 
+                                			FROM usuario as us
+                                      inner join unidad as un
+                                      on us.id_unidad = un.id
+                                      where correo = %s """
         cursor.execute(query_rol_user,(correo,))
 
         rol_usuario = cursor.fetchone()
@@ -100,19 +104,21 @@ class Role:
                 'data':[]
             }
         rol_usuario = rol_usuario['rol']
+        empresa = rol_usuario['empresa']
         if rol_usuario == 0:
-            query = """SELECT * FROM rol"""
+            query = """SELECT * FROM rol where empresa = %s"""
         else:
-            query = """SELECT * FROM rol where id >0"""
+            query = """SELECT * FROM rol where id >0 and empresa = %s"""
         
-        cursor.execute(query)
+        cursor.execute(query,(empresa,))
         data = cursor.fetchall()
         code = 200 if data else 204
         response = [
             {
                 'id':k['id'],
                 'nombre':k['nombre'],
-                'descripcion':k['descripcion']
+                'descripcion':k['descripcion'],
+                'estado':k['estado']
             }
             for k in data
         ]
