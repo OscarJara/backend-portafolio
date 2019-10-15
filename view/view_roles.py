@@ -6,10 +6,12 @@ def roles_view(mail):
 def add_role_view(request):
     name = request.json['nombre']
     description = request.json['descripcion']
+    empresa = request.json['empresa']
 
     rol = Role(
         name=name,
-        description=description
+        description=description,
+        empresa=empresa
     )
 
     return rol.add_role()
