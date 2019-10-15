@@ -4,11 +4,12 @@ class Role:
 
     def __init__(self,
                 id=None,name=None,
-                description=None
+                description=None,empresa=None
             ):
         self.id = id
         self.name = name
         self.description = description
+        self.empresa = empresa
 
     @postgres_cursor_connection_class
     def add_role(self,cursor,connection):
@@ -21,14 +22,19 @@ class Role:
                 'msg':'Nombre de rol existente',
                 'data':[]
             }
-        query = """INSERT INTO rol(nombre,descripcion) VALUES (%s,%s) """
-        cursor.execute(query,(self.name,self.description))
+        query = """INSERT INTO rol(nombre,descripcion,empresa) VALUES (%s,%s,%s) RETURNING id"""
+        cursor.execute(query,(self.name,self.description,self.empresa))
+        self.id = cursor.fetchone()['id']
         connection.commit()
 
         return {
             'status':200,
             'msg':'Rol agregado con exito',
-            'data':[]
+            'data':{
+                'id':self.id,
+                'nombre':self.name,
+                'descripcion':self.description  
+            }
         }
     
     def __valid_role(self,cursor):
@@ -56,7 +62,11 @@ class Role:
         return {
             'status':200,
             'msg':'Rol editado con exito',
-            'data':[]
+            'data':{
+                'id':self.id,
+                'nombre':self.name,
+                'descripcion':self.description  
+            }
         }
 
     @postgres_cursor_connection_class
@@ -101,7 +111,8 @@ class Role:
         response = [
             {
                 'id':k['id'],
-                'nombre':k['nombre']
+                'nombre':k['nombre'],
+                'descripcion':k['descripcion']
             }
             for k in data
         ]
