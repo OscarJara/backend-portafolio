@@ -265,6 +265,7 @@ class User:
         code = 200 if data else 204
         response = []
         for k in data:
+            print (k)
             response.append(
                 {
                     'nombre': k['nombres'],

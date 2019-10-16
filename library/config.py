@@ -29,3 +29,10 @@ def postgres_connect():
     connect_str = "dbname='{}' user='{}' host='{}' password='{}' ".format(
             POSTGRE_DB, POSTGRE_USER, POSTGRE_HOST, POSTGRE_PASS)
     return psycopg2.connect(connect_str)
+
+def standar_response(code,msg,data):
+    return {
+        'status':code,
+        'msg':msg,
+        'data':data
+        }

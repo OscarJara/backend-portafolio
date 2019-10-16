@@ -10,6 +10,7 @@ from view.view_user     import *
 import view.view_roles  as role
 import view.view_company as company
 import view.view_unity  as unity
+import view.view_process as pro
 
 
 app = Flask(__name__)
@@ -162,6 +163,24 @@ def modify_unity():
 @app.route('/unity',methods=['DELETE'])
 def delete_unity():
     return jsonify(unity.delete_unity_view(request))
+
+### PROCESS
+
+@app.route('/process',methods=['POST'])
+def add_process():
+    return jsonify(pro.view_create_process(request))
+    
+@app.route('/process',methods=['PUT'])
+def mod_process():
+    return jsonify(pro.view_update_process(request))
+
+@app.route('/process/<id>',methods=['GET'])
+def get_process(id):
+    return jsonify(pro.view_get_process(id))
+
+@app.route('/de-process',methods=['POST'])
+def dle_process():
+    return jsonify(pro.view_delete_process(request))
 
 
 if __name__ == "__main__":

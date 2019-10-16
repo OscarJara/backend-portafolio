@@ -86,6 +86,8 @@ def postgres_cursor_class(function):
             err = function.__name__
             err += ' ERROR: ' + str(e)
             desc = str(err) + ", problema: " + str(e)
+            import traceback
+            print (traceback.format_exc())
             return (
                 {
                     'status':500,
