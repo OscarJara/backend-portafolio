@@ -107,7 +107,7 @@ class Process:
             k['fecha_termino'] = k['fecha_termino'].strftime("%Y-%m-%d")
 
             del (k['id_empresa'])
-
+        data = sorted(data,key=lambda k: k['id'],reverse=False) if data else []
         return standar_response(200,'Lista de procesos',data)
 
 if __name__ == "__main__":
