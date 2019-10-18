@@ -42,11 +42,11 @@ def view_update_process(request):
     )
     return process.update_process()
 
-def view_get_process(id):
+def view_get_process(id,limit,offset):
     process = Process(
         company=id
     )
-    return process.get_process()
+    return process.get_process(limit,offset)
 # process = Process(
         
     #     name='Prueba',
