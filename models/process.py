@@ -92,12 +92,12 @@ class Process:
             }
         )
     @postgres_cursor_class
-    def get_process(self,cursor):
+    def get_process(self,cursor,limit,offset):
         if not self.__validate_company(cursor):
             return standar_response(400,'Empresa inexistente',{})
 
-        query = """ SELECT * FROM proceso where id_empresa = %s """
-        cursor.execute(query,(self.company,))
+        query = """ SELECT * FROM proceso where id_empresa = %s  limit %s offset %s"""
+        cursor.execute(query,(self.company,limit,offset))
         
         data = cursor.fetchall()
 

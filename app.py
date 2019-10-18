@@ -174,9 +174,12 @@ def add_process():
 def mod_process():
     return jsonify(pro.view_update_process(request))
 
-@app.route('/process/<id>',methods=['GET'])
-def get_process(id):
-    return jsonify(pro.view_get_process(id))
+@app.route('/process',methods=['GET'])
+def get_process():
+    id =  request.args.get('id')
+    limit =  request.args.get('li')
+    offset =  request.args.get('ff')
+    return jsonify(pro.view_get_process(id,limit,offset))
 
 @app.route('/de-process',methods=['POST'])
 def dle_process():
