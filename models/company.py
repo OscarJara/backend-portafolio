@@ -31,15 +31,23 @@ class Company:
                 'data':[]
             }
 
-        query_add = """ INSERT INTO empresa(nombre,direccion,ciudad,rut) VALUES ( %s,%s,%s,%s ) """
+        query_add = """ INSERT INTO empresa(nombre,direccion,ciudad,rut) VALUES ( %s,%s,%s,%s ) returning id """
         cursor.execute(query_add,(self.name,self.adress,self.city,self.rut))
 
         connection.commit()
-
+        self.id = cursor.fetchone()['id']
+        self.status= True
         return {
             'status':200,
             'msg':'Empresa agregada con exito',
-            'data':[]
+            'data':{
+                'id':self.id,
+                'nombre':self.name,
+                'direccion':self.adress,
+                'ciudad':self.city,
+                'rut':self.rut,
+                'estado':self.status
+            }
         }
 
     def __valid_company(self,cursor):
@@ -86,7 +94,7 @@ class Company:
 
         return {
             'status':200,
-            'msg':'Empresa eliminada con exito',
+            'msg':'Empresa desactivada con exito',
             'data':[]
         }
 
