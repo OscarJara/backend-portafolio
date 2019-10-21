@@ -86,6 +86,18 @@ class Role:
             'msg':'Rol eliminado con exito',
             'data':[]
         }
+    @postgres_cursor_connection_class
+    def activate_role(self,cursor,connection):
+
+        query ="""UPDATE rol set estado = True where id = %s """
+        cursor.execute(query,(self.id,))
+        connection.commit()
+        return {
+            'status':200,
+            'msg':'Rol activado con éxito',
+            'data':[]
+        }
+        
     @postgres_cursor_class
     def get_roles(self,cursor,correo):
 

@@ -24,7 +24,12 @@ def delete_role_view(request):
     )
 
     return rol.delete_role()
-
+def activate_role_view(id):
+    rol = Role(
+        id=id
+    )
+    return rol.activate_role()
+    
 def update_role_view(request):
     id = request.json['id']
     name = request.json['nombre']

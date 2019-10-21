@@ -43,6 +43,10 @@ def delete_role():
 @app.route('/role',methods=['PUT'])
 def update_role():
     return jsonify(role.update_role_view(request))
+@app.route('/activate-role',methods=['GET'])
+def activate_r():
+    id = request.args.get('id')
+    return jsonify(role.activate_role_view(id))
 
 ### END ROLE
 
