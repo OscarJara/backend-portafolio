@@ -122,7 +122,8 @@ def update_company():
 
 @app.route('/company',methods=['DELETE'])
 def delete_company():
-    return jsonify(company.delete_company_view(request))
+    id = request.args.get('id')
+    return jsonify(company.delete_company_view(id))
 
 @app.route('/activate-company',methods=['POST'])
 def activate_company():

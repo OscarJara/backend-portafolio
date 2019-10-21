@@ -35,8 +35,8 @@ def update_company_view(request):
     )
     return company.update_company()
 
-def delete_company_view(request):
-    id = request.json['id']
+def delete_company_view(id):
+    id = id
 
     company = Company(
         id=id
